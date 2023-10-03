@@ -13,6 +13,7 @@ import os
 def imprime_query(query):
 	for x in query:
 		print(x)
+	
 
 def get_quantities():
 	ids_quantities = []
@@ -85,7 +86,7 @@ imprime_query(productos_collection.find(query,{"_id":0, "title": 1, "price": 1})
 print(separacion,"\n\tProductos que contengan la palabra 'pocket' en la descripción\n" )
 #options i -> match upper and lower cases
 query2 = {"description": {"$regex" : "pocket", "$options": "i"}}
-imprime_query(productos_collection.find(query2,{"_id":0, "title": 1,  "description":1}))
+imprime_query(productos_collection.find(query2,{"_id":0, "title": 1}))
 
 #    Productos con puntuación mayor de 4
 print(separacion,"\n\tProductos con puntuación mayor de 4\n")
@@ -107,3 +108,14 @@ print(separacion,"\n\tFacturación por categoria de producto\n")
 print("Facturación por categoria: ")
 
 pprint(facturacion_por_categoria())
+
+
+## PARA NOTA ##
+#mongodump /host:localhost /port:27017 /db:tienda                                                                                           
+# 2023-10-03T19:28:49.822+0200    writing tienda.productos to dump\tienda\productos.bson                  
+# 2023-10-03T19:28:49.849+0200    writing tienda.compras to dump\tienda\compras.bson                      
+# 2023-10-03T19:28:49.853+0200    done dumping tienda.compras (7 documents)                               
+# 2023-10-03T19:28:49.853+0200    
+# done dumping tienda.productos (20 documents) 
+
+

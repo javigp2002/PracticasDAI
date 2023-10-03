@@ -1,7 +1,7 @@
 # docker compose run app python seed2.py
 
 
-from pydantic import BaseModel, FilePath, Field, EmailStr
+from pydantic import BaseModel, FilePath, Field, EmailStr, field_validator
 from pymongo import MongoClient
 from pprint import pprint
 from datetime import datetime
@@ -38,12 +38,21 @@ class Nota(BaseModel):
 				
 class Producto(BaseModel):
 	#_id: Any
+
 	title: str
 	price: float
 	description: str
 	category: str
 	image: str | None
 	rating: Nota
+
+	#comprobar que el title empieza por mayúscula
+	@field_validator('title')
+	@classmethod
+	def title_mayuscula(cls, v):
+		if v[0].islower():
+			raise ValueError('El título debe empezar por mayúscula')
+		return v.title()
 
 class Compra(BaseModel):
 	#_id: Any
