@@ -10,6 +10,7 @@ services:
   mongo:
     image: mongo:6.0
     volumes:
-      - ./datos:/data/db
+      - ./data:/data/db
+      - ./backup:/backup
     ports:
       - 27017:27017

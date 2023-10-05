@@ -1,4 +1,4 @@
-# docker compose run app python seed2.py
+# docker compose run app python seed.py
 
 
 from pydantic import BaseModel, FilePath, Field, EmailStr
@@ -111,11 +111,9 @@ pprint(facturacion_por_categoria())
 
 
 ## PARA NOTA ##
-#mongodump /host:localhost /port:27017 /db:tienda                                                                                           
-# 2023-10-03T19:28:49.822+0200    writing tienda.productos to dump\tienda\productos.bson                  
-# 2023-10-03T19:28:49.849+0200    writing tienda.compras to dump\tienda\compras.bson                      
-# 2023-10-03T19:28:49.853+0200    done dumping tienda.compras (7 documents)                               
-# 2023-10-03T19:28:49.853+0200    
-# done dumping tienda.productos (20 documents) 
-
-
+#docker compose run --rm -v "$(pwd)/backup:/backup" mongo bash -c 'mongodump 
+#--host mongo --port 27017 --db tienda --gzip --archive=/backup/backup.gz'
+#2023-10-05T16:30:11.803+0000    writing tienda.compras to archive '/backup/backup.gz'
+#2023-10-05T16:30:11.807+0000    writing tienda.productos to archive '/backup/backup.gz'
+#2023-10-05T16:30:11.807+0000    done dumping tienda.compras (7 documents)
+#2023-10-05T16:30:11.809+0000    done dumping tienda.productos (20 documents)
