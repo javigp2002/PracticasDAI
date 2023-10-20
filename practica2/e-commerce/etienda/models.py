@@ -85,8 +85,8 @@ def Consulta2():
 
 def Consulta3():
     r="\n\tProductos con puntuacion mayor de 4\n"
-    query3= {"rating.rate": {"$gt":4}}
-    for prod in productos_collection.find(query3,productos_collection.find(query3,{"_id":0, "title": 1, "rating":1})):
+    query3= {"rating.rate": {"$gte":4}}
+    for prod in productos_collection.find(query3,{"_id":0, "title": 1, "rating": 1}):
         r += str(prod) + "\n"    
 
     return r
