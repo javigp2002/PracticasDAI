@@ -67,26 +67,36 @@ def facturacion_por_categoria():
 
 
 
-###### CONSULTA
+def busqueda_categoria(categoria):
+    r=""
+    query = {"category": categoria}
+    for prod in productos_collection.find(query,{"_id":0, "title": 1, "price": 1}):
+        r += "<p>"+ str(prod) + "</p>"
+    return r
+
+
+
+###### CONSULTA ###
 def Consulta1():
     r =  "\n\tElectronica entre 100 y 200E, ordenados por precio\n"
     query = {"category": "electronics", "price": {"$gt":100, "$lt":200}}
     for prod in productos_collection.find(query,{"_id":0, "title": 1, "price": 1}).sort("price", 1):
-        r += str(prod) + "\n"
+        r += "<p>"+ str(prod) + "</p>"
+    
     return r
 
 def Consulta2():
     r= "\n\tProductos que contengan la palabra 'pocket' en la descripcion\n"
     query = {"description": {"$regex" : "pocket", "$options": "i"}}
     for prod in productos_collection.find(query,{"_id":0, "title": 1, "description": 1}):
-        r += str(prod) + "\n"
+        r += "<p>"+ str(prod) + "</p>"
 
     return r
 
 def Consulta3():
     r="\n\tProductos con puntuacion mayor de 4\n"
     query3= {"rating.rate": {"$gte":4}}
-    for prod in productos_collection.find(query3,{"_id":0, "title": 1, "rating": 1}):
+    for prod in productos_collection.find(query3,{"_id":0, "title": 1, "rating  ": 1}):
         r += str(prod) + "\n"    
 
     return r
