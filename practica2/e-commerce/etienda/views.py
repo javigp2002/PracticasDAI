@@ -7,7 +7,8 @@ from django.http import HttpResponse
 # Create your views here.
 
 def index(request):
-    context = {}
+    context = {
+    }
     return render(request, 'etienda/index.html', context) #busca primero en templates por el settings.py
 
 def busqueda(request):
@@ -20,7 +21,7 @@ def bus_cat(request,busc):
     context = {
         'buscar' : request.GET.get('buscar'),
         'busc' : busc,
-        'salida': busqueda_categoria(busc),
+        'productos': busqueda_categoria(busc),
     }
     return render(request, 'etienda/bus_cat.html', context)
 
