@@ -67,15 +67,16 @@ def facturacion_por_categoria():
 
 
 
-def busqueda_categoria(categoria, price=1):
+def busqueda_categoria(categoria):
     query = {"category": categoria}
-    # for prod in productos_collection.find(query,{"_id":0, "title": 1, "description": 1, "image": 1}):
-    #     r += "<p>"+ str(prod) + "</p>"
     r = productos_collection.find(query,{"_id":0, "title": 1, "description": 1, "image": 1, "price":1})
     return r
 
 
-
+def busqueda_palabra(palabra):
+    query = {"description": {"$regex" : palabra, "$options": "i"}}
+    return  productos_collection.find(query,{"_id":0, "title": 1, "description": 1, "image": 1, "price":1})
+        
 
 ###### CONSULTA ###
 def Consulta1():

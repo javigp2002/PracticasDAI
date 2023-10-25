@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from etienda.models import busqueda_categoria, Consulta6
+from etienda.models import busqueda_categoria, busqueda_palabra
 # Create your views here.
 from django.shortcuts import render
 from django.http import HttpResponse
@@ -12,8 +12,10 @@ def index(request):
     return render(request, 'etienda/index.html', context) #busca primero en templates por el settings.py
 
 def busqueda(request):
-    context = {'buscar' : request.GET.get('buscar')
-}
+    context = {
+        'buscar' : request.GET.get('buscar'),
+        'productos': busqueda_palabra(request.GET.get('buscar'))
+    }
     return render(request, 'etienda/busqueda.html', context) #busca primero en templates por el settings.py
 
 
