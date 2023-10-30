@@ -22,8 +22,12 @@
                   <li><a class="dropdown-item" href="/busq/jewelery">Joyeria</a></li>
                   <li><a class="dropdown-item" href="/busq/men's clothing">Ropa de hombre</a></li>
                   <li><a class="dropdown-item" href="/busq/women's clothing">Ropa de mujer</a></li>
+                  <div class="dropdown-divider"></div>
+                  <li><a class="dropdown-item" href="/busq/all">Todos los productos</a></li>
                 </ul>
               </div>
+
+              <a class="navbar-brand " href="{%url 'add'%}">Añadir</a>
 
             <form class="d-flex" role="search" action="{% url 'busqueda' %}" method="get">
                 <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" name="buscar">

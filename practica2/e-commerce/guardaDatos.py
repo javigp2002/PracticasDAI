@@ -66,9 +66,10 @@ productos = getProductos('https://fakestoreapi.com/products')
 compras = getProductos('https://fakestoreapi.com/carts')
 
 for p in productos:
-	saveImage(p.get('image'), 'imágenes')
+	p['image'] = saveImage(p.get('image'), 'static/imágenes/')
 	p.pop('id')
-	producto = Producto(**p)
+	print(p)
+	p = Producto(**p)
 
 # Valida con el esquema:
 # daría error si no corresponde algún tipo 

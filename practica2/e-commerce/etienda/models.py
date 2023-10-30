@@ -1,12 +1,43 @@
 from django.db import models
 from pymongo import MongoClient
-from pydantic import BaseModel, FilePath, Field, EmailStr
+from pydantic import BaseModel, FilePath, Field, EmailStr, field_validator
 from pymongo import MongoClient
 from pprint import pprint
 from datetime import datetime
 from typing import Any
 import requests
 # Create your models here.
+
+## CLASES
+class Nota(BaseModel):
+	rate: float = Field(ge=0., lt=5.)
+	count: int = Field(ge=1)
+      
+class Producto(BaseModel):
+	title: str
+	price: float
+	description: str
+	category: str
+	image: str | None
+	rating: Nota | None
+      
+
+	#comprobar que el title empieza por mayúscula
+	@field_validator('title')
+	@classmethod
+	def title_mayuscula(cls, v):
+		if v[0].islower():
+			raise ValueError('El título debe empezar por mayúscula')
+		return v.title()
+
+class Compra(BaseModel):
+	#_id: Any
+	userId: int
+	date: datetime
+	products: list	
+
+
+
 # Cliente
 client = MongoClient('mongo', 27017)
 tienda_db = client.tienda                   # Base de Datos
@@ -68,15 +99,25 @@ def facturacion_por_categoria():
 
 
 def busqueda_categoria(categoria):
-    query = {"category": categoria}
-    r = productos_collection.find(query,{"_id":0, "title": 1, "description": 1, "image": 1, "price":1})
-    return r
+	if categoria != "all":
+		query = {"category": categoria}
+		r = productos_collection.find(query,{"_id":0, "title": 1, "description": 1, "image": 1, "price":1})
+	else:
+		r = productos_collection.find({},{"_id":0, "title": 1, "description": 1, "image": 1, "price":1})
+    
+	return r
 
 
 def busqueda_palabra(palabra):
     query = {"description": {"$regex" : palabra, "$options": "i"}}
     return  productos_collection.find(query,{"_id":0, "title": 1, "description": 1, "image": 1, "price":1})
         
+
+def add_producto(producto):
+    productos_collection.insert_one(producto)
+    
+
+
 
 ###### CONSULTA ###
 def Consulta1():

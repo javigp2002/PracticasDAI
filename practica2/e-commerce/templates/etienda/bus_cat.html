@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {% block contenido %}
+{% load static %}
 
 <h2>Resultados de la categoría: {{busc}}</h2>
 <!-- <div class="d-flex justify-content-around flex-wrap card-group"> -->
@@ -8,7 +9,7 @@
     {% for producto in productos %}
     <div class="col mb-4">
       <div class="card h-100">
-          <img class="card-img-top mx-auto" style="height:10rem;width:max-content;"  src="{{producto.image}}" alt="Card image cap">
+          <img class="card-img-top mx-auto" style="height: 10rem;" src="{% static  producto.image %}" alt="Card image cap">
           <div class="card-body">
             <h5 class="card-title "><b>{{producto.title}}</b></h5>
             <p class="card-text">{{producto.description}}</p>

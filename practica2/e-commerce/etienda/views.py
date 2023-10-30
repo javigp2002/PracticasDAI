@@ -1,12 +1,19 @@
-from django.shortcuts import render
-from etienda.models import busqueda_categoria, busqueda_palabra
+from django.shortcuts import render, redirect
+from etienda.models import busqueda_categoria, busqueda_palabra, add_producto, Producto
+
 # Create your views here.
 from django.shortcuts import render
 from django.http import HttpResponse
+from etienda.forms import productoForm
+
+import logging
+logger = logging.getLogger(__name__)
 
 # Create your views here.
 
 def index(request):
+    logger.debug('index')
+    logger.warning('He pasado por index')
     context = {
     }
     return render(request, 'etienda/index.html', context) #busca primero en templates por el settings.py
@@ -27,43 +34,56 @@ def bus_cat(request,busc):
     }
     return render(request, 'etienda/bus_cat.html', context)
 
-# def index(request):
-#     html = """
-#     <body>
-#         <h1>Práctica 2</h1>
-#         <ol>
-#             <li> <a href="C1/">C1</a> </li>
-#             <li> <a href="C2/">C2</a> </li>
-#             <li> <a href="C3/">C3</a> </li>
-#             <li> <a href="C4/">C4</a> </li>
-#             <li> <a href="C5/">C5</a> </li>
-#             <li> <a href="C6/">C6</a> </li>
-#         </ol>
-#     </body>
+def add(request):
+    form = productoForm()
+    if request.method == 'POST':
+        form = productoForm(request.POST, request.FILES)
 
-#     """
-#     return HttpResponse(html)
+        if form.is_valid():
+            imagen = handle_uploaded_file(request.FILES['imagen'])
+            producto = {
+                "title": form.cleaned_data['nombre'],
+                "price": form.cleaned_data['precio'],
+                "category": form.cleaned_data['categoria'],
+                "description": form.cleaned_data['descripcion'],
+                "image": imagen,
+                "rating": {
+                    "rate": 4.8,
+                    "count": 17
+                }
+            }
+            add_producto(producto)
 
-# def C1(request):
-#     salida = Consulta1()
-#     return HttpResponse(salida, content_type="text/plain")
+            return redirect('index')
+    context = {
+        'form': form
+    }
+    return render(request, 'etienda/add.html', context)
 
-# def C2 (request):
-#     salida = Consulta2()
-#     return HttpResponse(salida, content_type="text/plain")
+def handle_uploaded_file(f):
+    path = 'static/' + f.name
+    with open(path, "wb+") as destination:
+        for chunk in f.chunks():
+            destination.write(chunk)
+    return f.name
 
-# def C3 (request):
-#     salida = Consulta3()
-#     return HttpResponse(salida, content_type="text/plain")
+def recogerDatos(form):
+    nombre = form.cleaned_data['nombre']
+    precio = form.cleaned_data['precio']
+    categoria = form.cleaned_data['categoria']
+    descripcion = form.cleaned_data['descripcion']
+    imagen = form.cleaned_data['imagen']
+    producto = {
+        "title": nombre,
+        "price": precio,
+        "category": categoria,
+        "description": descripcion,
+        "image": imagen,
+        "rating": { 
+            "rate": 4.8,
+            "count": 17
+        }
+    }
 
-# def C4 (request):
-#     salida = Consulta4()
-#     return HttpResponse(salida, content_type="text/plain")
-
-# def C5 (request):
-#     salida = Consulta5()
-#     return HttpResponse(salida, content_type="text/plain")
-
-# def C6 (request):
-#     salida = Consulta6()
-#     return HttpResponse(salida, content_type="text/plain") 
+    logger.warning(producto)
+    return producto
