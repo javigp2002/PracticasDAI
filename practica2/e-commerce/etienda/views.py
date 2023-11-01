@@ -40,18 +40,9 @@ def add(request):
         form = productoForm(request.POST, request.FILES)
 
         if form.is_valid():
+            
             imagen = handle_uploaded_file(request.FILES['imagen'])
-            producto = {
-                "title": form.cleaned_data['nombre'],
-                "price": form.cleaned_data['precio'],
-                "category": form.cleaned_data['categoria'],
-                "description": form.cleaned_data['descripcion'],
-                "image": imagen,
-                "rating": {
-                    "rate": 4.8,
-                    "count": 17
-                }
-            }
+            producto = recogerDatos(form, imagen)
             add_producto(producto)
 
             return redirect('index')
@@ -67,19 +58,14 @@ def handle_uploaded_file(f):
             destination.write(chunk)
     return f.name
 
-def recogerDatos(form):
-    nombre = form.cleaned_data['nombre']
-    precio = form.cleaned_data['precio']
-    categoria = form.cleaned_data['categoria']
-    descripcion = form.cleaned_data['descripcion']
-    imagen = form.cleaned_data['imagen']
+def recogerDatos(form, imagen):
     producto = {
-        "title": nombre,
-        "price": precio,
-        "category": categoria,
-        "description": descripcion,
+        "title": form.cleaned_data['nombre'],
+        "price": form.cleaned_data['precio'],
+        "category": form.cleaned_data['categoria'],
+        "description": form.cleaned_data['descripcion'],
         "image": imagen,
-        "rating": { 
+        "rating": {
             "rate": 4.8,
             "count": 17
         }

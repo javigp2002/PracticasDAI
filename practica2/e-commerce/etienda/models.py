@@ -97,7 +97,6 @@ def facturacion_por_categoria():
 	return facturacion_total_categoria
 
 
-
 def busqueda_categoria(categoria):
 	if categoria != "all":
 		query = {"category": categoria}
