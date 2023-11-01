@@ -5,6 +5,7 @@ from etienda.models import busqueda_categoria, busqueda_palabra, add_producto, P
 from django.shortcuts import render
 from django.http import HttpResponse
 from etienda.forms import productoForm
+from django.contrib import messages
 
 import logging
 logger = logging.getLogger(__name__)
@@ -40,12 +41,17 @@ def add(request):
         form = productoForm(request.POST, request.FILES)
 
         if form.is_valid():
-            
+
             imagen = handle_uploaded_file(request.FILES['imagen'])
             producto = recogerDatos(form, imagen)
             add_producto(producto)
 
+            messages.success(request, "Producto añadido correctamente")
+
             return redirect('index')
+        else:
+            logger.warning('Formulario no válido')
+            messages.error(request, "Error en el formulario")
     context = {
         'form': form
     }
