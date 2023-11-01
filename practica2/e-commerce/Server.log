@@ -1,0 +1,2 @@
+[01/Nov/2023 19:04:52] WARNING [etienda.views:74] {'title': 'Hola', 'price': 3213.0, 'category': 'pruebas', 'description': 'mfgndjkslngdlsfg', 'image': 'images.jpg', 'rating': {'rate': 4.8, 'count': 17}}
+[01/Nov/2023 19:04:52] WARNING [etienda.views:16] He pasado por index
