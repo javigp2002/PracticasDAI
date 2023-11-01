@@ -1,5 +1,14 @@
 # DAI
 
+## IMPORTANTE
+
+Para lo esté en requirements.txt
+- docker compose build 
+
+Ejecuta " ython manage.py runserver 0.0.0.0:8000"
+- docker compose up 
+
+
 ## Practica 1
 
 
