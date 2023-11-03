@@ -20,7 +20,7 @@ def saveImage(url, directory):
 	path = os.path.join(directory, name)
 	with open(path, 'wb') as f:
 		f.write(image)
-	return name
+	return "imágenes/" + name
 
 # https://requests.readthedocs.io/en/latest/
 def getProductos(api):

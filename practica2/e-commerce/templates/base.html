@@ -23,33 +23,38 @@
     </div>
     {% endif %}
 
-    <nav class="navbar navbar-expand-md navbar-dark bg-dark">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <div class="container-fluid">
-            <a class="navbar-brand " href="{%url 'index'%}">Tienda DAI</a>
-            
-            <div class="dropdown">
-                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-                  Categorias
-                </button>
-                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                  <li><a class="dropdown-item" href="/busq/electronics">Electronica</a></li>
-                  <li><a class="dropdown-item" href="/busq/jewelery">Joyeria</a></li>
-                  <li><a class="dropdown-item" href="/busq/men's clothing">Ropa de hombre</a></li>
-                  <li><a class="dropdown-item" href="/busq/women's clothing">Ropa de mujer</a></li>
-                  <div class="dropdown-divider"></div>
-                  <li><a class="dropdown-item" href="/busq/all">Todos los productos</a></li>
-                </ul>
-              </div>
-
-              <a class="navbar-brand " href="{%url 'add'%}">Añadir</a>
-
+          <a class="navbar-brand" href="{%url 'index'%}">Tienda DAI</a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarScroll" aria-controls="navbarScroll" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarScroll">
+            <ul class="navbar-nav me-auto my-2 my-lg-0 navbar-nav-scroll" style="--bs-scroll-height: 100px;">
+                <li class="nav-item">
+                    <a class="nav-link" href="{%url 'add'%}">Añadir</a>
+                  </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarScrollingDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        Categorias
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="navbarScrollingDropdown">
+                        <li><a class="dropdown-item" href="/busq/electronics">Electronica</a></li>
+                        <li><a class="dropdown-item" href="/busq/jewelery">Joyeria</a></li>
+                        <li><a class="dropdown-item" href="/busq/men's clothing">Ropa de hombre</a></li>
+                        <li><a class="dropdown-item" href="/busq/women's clothing">Ropa de mujer</a></li>
+                        <div class="dropdown-divider"></div>
+                        <li><a class="dropdown-item" href="/busq/all">Todos los productos</a></li>
+                    </ul>
+                </li>
+            </ul>
             <form class="d-flex" role="search" action="{% url 'busqueda' %}" method="get">
                 <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" name="buscar">
                 <button class="btn btn-outline-success" type="submit">Search</button>
             </form> 
+          </div>
         </div>
-    </nav>
-
+      </nav>
     <div class="container" >
         {% block contenido %}
         {% endblock %}

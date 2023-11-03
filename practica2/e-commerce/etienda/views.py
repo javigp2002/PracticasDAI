@@ -70,7 +70,7 @@ def recogerDatos(form, imagen):
         "price": form.cleaned_data['precio'],
         "category": form.cleaned_data['categoria'],
         "description": form.cleaned_data['descripcion'],
-        "image": imagen,
+        "image": 'imágenes/' + imagen,
         "rating": {
             "rate": 4.8,
             "count": 17

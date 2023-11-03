@@ -1,6 +1,0 @@
-[01/Nov/2023 19:15:13] WARNING [etienda.views:80] {'title': 'Prueba', 'price': 1.0, 'category': 'Prueba', 'description': 'PruebaMess', 'image': 'images.jpg', 'rating': {'rate': 4.8, 'count': 17}}
-[01/Nov/2023 19:15:13] WARNING [etienda.views:17] He pasado por index
-[01/Nov/2023 19:16:55] WARNING [etienda.views:80] {'title': 'Pruebaa', 'price': 1.0, 'category': 'Prueba', 'description': 'PruebaMessda', 'image': 'images.jpg', 'rating': {'rate': 4.8, 'count': 17}}
-[01/Nov/2023 19:16:55] WARNING [etienda.views:17] He pasado por index
-[01/Nov/2023 19:17:41] WARNING [etienda.views:80] {'title': 'Pruebaa', 'price': 1.0, 'category': 'Prueba', 'description': 'PruebaMessda', 'image': 'images.jpg', 'rating': {'rate': 4.8, 'count': 17}}
-[01/Nov/2023 19:17:41] WARNING [etienda.views:17] He pasado por index
