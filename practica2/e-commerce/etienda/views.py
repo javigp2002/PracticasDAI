@@ -8,6 +8,7 @@ from etienda.forms import productoForm
 from django.contrib import messages
 
 import logging
+from django.contrib.auth.decorators import login_required
 logger = logging.getLogger(__name__)
 
 # Create your views here.
@@ -40,6 +41,7 @@ def bus_cat(request,busc):
 
     return render(request, 'etienda/bus_cat.html', context)
 
+@login_required
 def add(request):
     form = productoForm()
     if request.method == 'POST':

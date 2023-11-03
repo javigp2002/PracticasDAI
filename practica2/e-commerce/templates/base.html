@@ -23,17 +23,19 @@
     </div>
     {% endif %}
 
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <div class="container-fluid">
           <a class="navbar-brand" href="{%url 'index'%}">Tienda DAI</a>
           <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarScroll" aria-controls="navbarScroll" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
           </button>
           <div class="collapse navbar-collapse" id="navbarScroll">
-            <ul class="navbar-nav me-auto my-2 my-lg-0 navbar-nav-scroll" style="--bs-scroll-height: 100px;">
-                <li class="nav-item">
-                    <a class="nav-link" href="{%url 'add'%}">Añadir</a>
-                  </li>
+            <ul class="navbar-nav ms-auto my-2 my-lg-0 navbar-nav-scroll" style="--bs-scroll-height: 100px;">
+                {% if user.is_authenticated %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="{%url 'add'%}">Añadir</a>
+                    </li>
+                {% endif %}
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarScrollingDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                         Categorias
@@ -47,11 +49,37 @@
                         <li><a class="dropdown-item" href="/busq/all">Todos los productos</a></li>
                     </ul>
                 </li>
+                <li class="nav-item dropdown">
+                    {% if user.is_authenticated %}
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarScrollingDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            Hi, {{user.username}}!
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="navbarScrollingDropdown">
+                            <li><a class="dropdown-item"  href="{% url 'logout' %}">Log Out</a></li>
+                        </ul>
+                    {% else %}
+                        <a class="nav-link" href="{% url 'login' %}">Log In</a>
+                    {% endif %}
+                </li>
             </ul>
             <form class="d-flex" role="search" action="{% url 'busqueda' %}" method="get">
                 <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" name="buscar">
                 <button class="btn btn-outline-success" type="submit">Search</button>
             </form> 
+
+            <!-- <div class="text-light dropdown">
+                {% if user.is_authenticated %}
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarScrollingDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        Hi, {{user.username}}!
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="navbarScrollingDropdown">
+                        <li><a class="dropdown-item"  href="{% url 'logout' %}">Log Out</a></li>
+                    </ul>
+                {% else %}
+                    <a class="nav-link" href="{% url 'login' %}">Log In</a>
+                {% endif %}
+            </div> -->
+
           </div>
         </div>
       </nav>

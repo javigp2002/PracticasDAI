@@ -1,6 +1,37 @@
-[03/Nov/2023 08:54:59] INFO [etienda.views:39] Búsqueda de productos con la categoría: all
-[03/Nov/2023 08:55:02] INFO [etienda.views:47] Validando producto...
-[03/Nov/2023 08:55:02] INFO [etienda.models:130] Producto añadido
-[03/Nov/2023 08:55:02] WARNING [etienda.views:17] He pasado por index
-[03/Nov/2023 08:55:26] WARNING [etienda.views:17] He pasado por index
-[03/Nov/2023 08:55:35] INFO [etienda.views:28] Búsqueda de productos con la palabra: pocket
+[03/Nov/2023 11:01:13] WARNING [etienda.views:18] He pasado por index
+[03/Nov/2023 11:02:25] WARNING [etienda.views:18] He pasado por index
+[03/Nov/2023 11:02:32] WARNING [etienda.views:18] He pasado por index
+[03/Nov/2023 11:06:46] WARNING [etienda.views:18] He pasado por index
+[03/Nov/2023 11:06:54] WARNING [etienda.views:18] He pasado por index
+[03/Nov/2023 11:06:57] WARNING [etienda.views:18] He pasado por index
+[03/Nov/2023 11:07:05] WARNING [etienda.views:18] He pasado por index
+[03/Nov/2023 11:07:25] WARNING [etienda.views:18] He pasado por index
+[03/Nov/2023 11:08:15] WARNING [etienda.views:18] He pasado por index
+[03/Nov/2023 11:08:17] WARNING [etienda.views:18] He pasado por index
+[03/Nov/2023 11:08:17] WARNING [etienda.views:18] He pasado por index
+[03/Nov/2023 11:08:17] WARNING [etienda.views:18] He pasado por index
+[03/Nov/2023 11:08:17] WARNING [etienda.views:18] He pasado por index
+[03/Nov/2023 11:08:17] WARNING [etienda.views:18] He pasado por index
+[03/Nov/2023 11:08:17] WARNING [etienda.views:18] He pasado por index
+[03/Nov/2023 11:08:17] WARNING [etienda.views:18] He pasado por index
+[03/Nov/2023 11:08:18] WARNING [etienda.views:18] He pasado por index
+[03/Nov/2023 11:08:26] WARNING [etienda.views:18] He pasado por index
+[03/Nov/2023 11:09:10] WARNING [etienda.views:18] He pasado por index
+[03/Nov/2023 11:09:11] WARNING [etienda.views:18] He pasado por index
+[03/Nov/2023 11:09:45] WARNING [etienda.views:18] He pasado por index
+[03/Nov/2023 11:09:47] WARNING [etienda.views:18] He pasado por index
+[03/Nov/2023 11:10:25] WARNING [etienda.views:18] He pasado por index
+[03/Nov/2023 11:10:26] WARNING [etienda.views:18] He pasado por index
+[03/Nov/2023 11:10:27] WARNING [etienda.views:18] He pasado por index
+[03/Nov/2023 11:10:54] WARNING [etienda.views:18] He pasado por index
+[03/Nov/2023 11:11:41] WARNING [etienda.views:18] He pasado por index
+[03/Nov/2023 11:12:12] WARNING [etienda.views:18] He pasado por index
+[03/Nov/2023 11:12:13] WARNING [etienda.views:18] He pasado por index
+[03/Nov/2023 11:12:56] WARNING [etienda.views:18] He pasado por index
+[03/Nov/2023 11:13:12] WARNING [etienda.views:18] He pasado por index
+[03/Nov/2023 11:13:13] WARNING [etienda.views:18] He pasado por index
+[03/Nov/2023 11:13:13] WARNING [etienda.views:18] He pasado por index
+[03/Nov/2023 11:13:43] WARNING [etienda.views:18] He pasado por index
+[03/Nov/2023 11:13:44] WARNING [etienda.views:18] He pasado por index
+[03/Nov/2023 11:14:17] WARNING [etienda.views:18] He pasado por index
+[03/Nov/2023 11:14:18] WARNING [etienda.views:18] He pasado por index
