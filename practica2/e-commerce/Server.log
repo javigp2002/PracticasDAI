@@ -1,0 +1,6 @@
+[03/Nov/2023 08:54:59] INFO [etienda.views:39] Búsqueda de productos con la categoría: all
+[03/Nov/2023 08:55:02] INFO [etienda.views:47] Validando producto...
+[03/Nov/2023 08:55:02] INFO [etienda.models:130] Producto añadido
+[03/Nov/2023 08:55:02] WARNING [etienda.views:17] He pasado por index
+[03/Nov/2023 08:55:26] WARNING [etienda.views:17] He pasado por index
+[03/Nov/2023 08:55:35] INFO [etienda.views:28] Búsqueda de productos con la palabra: pocket

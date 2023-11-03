@@ -24,6 +24,8 @@ def busqueda(request):
         'buscar' : request.GET.get('buscar'),
         'productos': busqueda_palabra(request.GET.get('buscar'))
     }
+
+    logger.info('Búsqueda de productos con la palabra: ' + request.GET.get('buscar'))
     return render(request, 'etienda/busqueda.html', context) #busca primero en templates por el settings.py
 
 
@@ -33,24 +35,24 @@ def bus_cat(request,busc):
         'busc' : busc,
         'productos': busqueda_categoria(busc),
     }
+
+    logger.info('Búsqueda de productos con la categoría: ' + busc)
+
     return render(request, 'etienda/bus_cat.html', context)
 
 def add(request):
     form = productoForm()
     if request.method == 'POST':
         form = productoForm(request.POST, request.FILES)
+        logger.info('Validando producto...')
 
         if form.is_valid():
-
             imagen = handle_uploaded_file(request.FILES['imagen'])
-            producto = recogerDatos(form, imagen)
-            add_producto(producto)
-
-            messages.success(request, "Producto añadido correctamente")
-
+            producto = recogerDatos(form, imagen)    
+            add_producto(producto, request)
             return redirect('index')
         else:
-            logger.warning('Formulario no válido')
+            logger.info('Formulario no válido')
             messages.error(request, "Error en el formulario")
     context = {
         'form': form
@@ -58,24 +60,20 @@ def add(request):
     return render(request, 'etienda/add.html', context)
 
 def handle_uploaded_file(f):
-    path = 'static/' + f.name
+    path = 'static/imágenes/' + f.name
     with open(path, "wb+") as destination:
         for chunk in f.chunks():
             destination.write(chunk)
     return f.name
 
 def recogerDatos(form, imagen):
+    imagen = "imágenes/" + imagen
     producto = {
         "title": form.cleaned_data['nombre'],
         "price": form.cleaned_data['precio'],
         "category": form.cleaned_data['categoria'],
         "description": form.cleaned_data['descripcion'],
-        "image": 'imágenes/' + imagen,
-        "rating": {
-            "rate": 4.8,
-            "count": 17
-        }
+        "image": imagen,
     }
 
-    logger.warning(producto)
     return producto

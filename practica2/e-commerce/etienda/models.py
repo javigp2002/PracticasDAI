@@ -5,8 +5,12 @@ from pymongo import MongoClient
 from pprint import pprint
 from datetime import datetime
 from typing import Any
+from django.contrib import messages
+from django.shortcuts import render, redirect
 import requests
 # Create your models here.
+import logging
+logger = logging.getLogger(__name__)
 
 ## CLASES
 class Nota(BaseModel):
@@ -112,8 +116,21 @@ def busqueda_palabra(palabra):
     return  productos_collection.find(query,{"_id":0, "title": 1, "description": 1, "image": 1, "price":1})
         
 
-def add_producto(producto):
-    productos_collection.insert_one(producto)
+def add_producto(producto, request):
+	try :
+		productos_collection.insert_one(producto)
+
+	except:
+		logger.info("Error al añadir el producto")
+		messages.success(request, "Producto añadido correctamente")
+
+		return redirect('add')
+
+	finally:
+		logger.info("Producto añadido")
+		messages.success(request, "Producto añadido correctamente")
+
+
     
 
 
