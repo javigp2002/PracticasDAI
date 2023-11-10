@@ -127,7 +127,7 @@ def add_producto(producto, request):
 		return redirect('add')
 
 	finally:
-		logger.info("Producto añadido")
+		logger.info("Producto añadido correctamente", producto['title'])
 		messages.success(request, "Producto añadido correctamente")
 
 

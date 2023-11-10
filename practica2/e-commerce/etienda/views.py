@@ -52,6 +52,8 @@ def add(request):
             imagen = handle_uploaded_file(request.FILES['imagen'])
             producto = recogerDatos(form, imagen)    
             add_producto(producto, request)
+
+            logger.info("Producto'" + producto['title'] + "' añadido correctamente")
             return redirect('index')
         else:
             logger.info('Formulario no válido')
