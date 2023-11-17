@@ -1,23 +1,29 @@
 from django.db import models
 from pymongo import MongoClient
-from pydantic import BaseModel, FilePath, Field, EmailStr, field_validator
+from bson.json_util import dumps
+from bson.objectid import ObjectId
+from pydantic import BaseModel, FilePath, Field, EmailStr
 from pymongo import MongoClient
 from pprint import pprint
 from datetime import datetime
 from typing import Any
 from django.contrib import messages
 from django.shortcuts import render, redirect
+from ninja import Schema
+
+
+
 import requests
 # Create your models here.
 import logging
 logger = logging.getLogger(__name__)
 
 ## CLASES
-class Nota(BaseModel):
-	rate: float = Field(ge=0., lt=5.)
+class Nota(Schema):
+	rate: float = Field(ge=0., lt=5.)	
 	count: int = Field(ge=1)
       
-class Producto(BaseModel):
+class Producto(Schema):
 	title: str
 	price: float
 	description: str
@@ -27,14 +33,14 @@ class Producto(BaseModel):
       
 
 	#comprobar que el title empieza por mayúscula
-	@field_validator('title')
-	@classmethod
-	def title_mayuscula(cls, v):
-		if v[0].islower():
-			raise ValueError('El título debe empezar por mayúscula')
-		return v.title()
+	# @field_validator('title')
+	# @classmethod
+	# def title_mayuscula(cls, v):
+	# 	if v[0].islower():
+	# 		raise ValueError('El título debe empezar por mayúscula')
+	# 	return v.title()
 
-class Compra(BaseModel):
+class Compra(Schema):
 	#_id: Any
 	userId: int
 	date: datetime
@@ -128,55 +134,67 @@ def add_producto(producto, request):
 
 	finally:
 		logger.info("Producto añadido correctamente", producto['title'])
-		messages.success(request, "Producto añadido correctamente")
+		if request != 0:
+			messages.success(request, "Producto añadido correctamente")
+
+######################### API ##############################
+
+def consulta_productos():
+	productos = productos_collection.find()
+	resultado = []
+	for producto in productos:
+		producto["id"] = str(producto.get('_id'))
+		del producto["_id"]
+		resultado.append(producto)
+
+	return resultado
+
+# devuelve los productos desde el numero de item desde hasta el numero de item hasta
+def get_productos(desde, hasta):
+	productos = consulta_productos()[desde:hasta]
+
+	print("\n ", productos, "\n ")
+	return {"Productos": (productos)}
+
+def get_producto_by_id(id, solo_producto = False):
+	producto = productos_collection.find_one({"_id": ObjectId(id)})
+	producto["id"] = str(producto.get('_id'))
+	del producto["_id"]
+	if solo_producto:
+		return producto
+	else:
+		return {"Producto": (producto)}
+
+def add_producto_api(title, price, description, category, image):
+	imagen = handle_uploaded_file(image)
+	producto = recogerDatos(title, price, category, description, imagen)    
+	objectid = productos_collection.insert_one(producto)
+	return get_producto_by_id(objectid.inserted_id)
+
+def handle_uploaded_file(f):
+    path = 'static/imágenes/' + f.name
+    with open(path, "wb+") as destination:
+        for chunk in f.chunks():
+            destination.write(chunk)
+    return f.name
+
+# este también está en views.py
+def recogerDatos(title, price, category, description, imagen):
+    imagen = "imágenes/" + imagen
+    producto = {
+        "title": title,
+        "price": price,
+        "category": category,
+        "description": description,
+        "image": imagen,
+    }
+
+    return producto
 
 
-    
-
-
-
-###### CONSULTA ###
-def Consulta1():
-    r =  "\n\tElectronica entre 100 y 200E, ordenados por precio\n"
-    query = {"category": "electronics", "price": {"$gt":100, "$lt":200}}
-    for prod in productos_collection.find(query,{"_id":0, "title": 1, "price": 1}).sort("price", 1):
-        r += "<p>"+ str(prod) + "</p>"
-    
-    return r
-
-def Consulta2():
-    r= "\n\tProductos que contengan la palabra 'pocket' en la descripcion\n"
-    query = {"description": {"$regex" : "pocket", "$options": "i"}}
-    for prod in productos_collection.find(query,{"_id":0, "title": 1, "description": 1}):
-        r += "<p>"+ str(prod) + "</p>"
-
-    return r
-
-def Consulta3():
-    r="\n\tProductos con puntuacion mayor de 4\n"
-    query3= {"rating.rate": {"$gte":4}}
-    for prod in productos_collection.find(query3,{"_id":0, "title": 1, "rating  ": 1}):
-        r += str(prod) + "\n"    
-
-    return r
-
-def Consulta4():
-    r="\n\tRopa de hombre, ordenada por puntuacion\n"
-    query4={"category": "men's clothing"}
-    for prod in productos_collection.find(query4,{"_id":0, "title": 1, "category":1, "rating":1}).sort("rating.rate", 1):
-        r += str(prod) + "\n"
-    return r
-
-def Consulta5():
-    r="\n\tFacturacion total\n"
-    fact_str = str(calcula_facturacion())
-
-    r+=("Facturacion total: " + fact_str + "\n")
-
-    return r
-
-def Consulta6():
-    r =  "\n\tFacturacion por categoria de producto\n"
-    r+="Facturacion por categoria:"
-    r+= str(facturacion_por_categoria())
-    return r
+def modify_product(producto, id):
+	try:
+		productos_collection.update_one({"_id": ObjectId(id)}, {"$set": {"title": producto.title, "price": producto.price, "description": producto.description, "category": producto.category}})
+		return {"Producto modificado": (producto)}
+	except:
+		return {"Error": "Error al modificar el producto"}

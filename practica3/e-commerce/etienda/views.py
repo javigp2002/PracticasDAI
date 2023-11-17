@@ -6,7 +6,7 @@ from django.shortcuts import render
 from django.http import HttpResponse
 from etienda.forms import productoForm
 from django.contrib import messages
-
+from etienda.models import handle_uploaded_file
 import logging
 from django.contrib.auth.decorators import login_required
 logger = logging.getLogger(__name__)
@@ -63,13 +63,7 @@ def add(request):
     }
     return render(request, 'etienda/add.html', context)
 
-def handle_uploaded_file(f):
-    path = 'static/imágenes/' + f.name
-    with open(path, "wb+") as destination:
-        for chunk in f.chunks():
-            destination.write(chunk)
-    return f.name
-
+# este también está en models.py
 def recogerDatos(form, imagen):
     imagen = "imágenes/" + imagen
     producto = {
