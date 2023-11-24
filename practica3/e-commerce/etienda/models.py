@@ -153,10 +153,9 @@ def consulta_productos():
 def get_productos(desde, hasta):
 	productos = consulta_productos()[desde:hasta]
 
-	print("\n ", productos, "\n ")
-	return {"Productos": (productos)}
+	return productos
 
-def get_producto_by_id(id, solo_producto = False):
+def get_producto_by_id(id, solo_producto = True):
 	producto = productos_collection.find_one({"_id": ObjectId(id)})
 	producto["id"] = str(producto.get('_id'))
 	del producto["_id"]
@@ -169,6 +168,8 @@ def add_producto_api(title, price, description, category, image):
 	imagen = handle_uploaded_file(image)
 	producto = recogerDatos(title, price, category, description, imagen)    
 	objectid = productos_collection.insert_one(producto)
+	logger.info("Producto añadido correctamente", producto['title'])
+	
 	return get_producto_by_id(objectid.inserted_id)
 
 def handle_uploaded_file(f):
@@ -193,8 +194,26 @@ def recogerDatos(title, price, category, description, imagen):
 
 
 def modify_product(producto, id):
+	productos_collection.update_one({"_id": ObjectId(id)}, {"$set": {"title": producto.title, "price": producto.price, "description": producto.description, "category": producto.category}})
+	logger.info("Producto " + id + " modificado correctamente")
+	
+	return get_producto_by_id(id)
+	
+def delete_product(id):
 	try:
-		productos_collection.update_one({"_id": ObjectId(id)}, {"$set": {"title": producto.title, "price": producto.price, "description": producto.description, "category": producto.category}})
-		return {"Producto modificado": (producto)}
-	except:
-		return {"Error": "Error al modificar el producto"}
+		resul = productos_collection.find({"_id": ObjectId(id)})
+		resultado = {}
+		for attr, val in resul[0].items():
+			if attr == "_id":
+				resultado["id"] = str(val)
+			else:
+				resultado[attr] = val
+		productos_collection.delete_one({"_id": ObjectId(id)})
+		logger.info("Producto eliminado correctamente", resultado['title'])
+
+		return resultado
+	except Exception as e:
+		logger.error(e)
+		logger.error("Error al eliminar el producto")        
+		return False
+	
