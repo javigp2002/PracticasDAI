@@ -6,12 +6,12 @@ from ninja.security import HttpBearer
 
 api = NinjaExtraAPI()
 
-class GlobalAuth(HttpBearer):
-    def authenticate(self, request, token):
-        if token == "DAI2023":
-            return token
+# class GlobalAuth(HttpBearer):
+#     def authenticate(self, request, token):
+#         if token == "DAI2023":
+#             return token
 
-api = NinjaExtraAPI(auth=GlobalAuth())
+# api = NinjaExtraAPI(auth=GlobalAuth())
 
 class ProductoSchema(Schema):
 	title: str
@@ -40,7 +40,7 @@ def add_prods_api(request, title: str = Form(...), price: float = Form(...), des
     except Exception as e:
           return 404, {"message": "No se ha podido añadir el producto"}
 
-@api.get("/productos/<id>", tags=['Productos'], response={200: ProductoSchema, 404: ErrorSchema})
+@api.get("/productos/{id}", tags=['Productos'], response={200: Producto, 404: ErrorSchema})
 def get_prod_by_id(request, id: str):
     try:
         return 200,get_producto_by_id(id)
@@ -63,8 +63,8 @@ def delete_prod(request, id : str):
 	except Exception as e:
 		return 404, {"message": "No se ha encontrado el producto"}
 
-@api.post("/token", auth=None) 
-def get_token(request, username: str = Form(...), password: str = Form(...)):
-    if username == "admin" and password == "DAI2324":
-        return {"token": "DAI2023"}
+# @api.post("/token", auth=None) 
+# def get_token(request, username: str = Form(...), password: str = Form(...)):
+#     if username == "admin" and password == "DAI2324":
+#         return {"token": "DAI2023"}
     

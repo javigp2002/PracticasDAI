@@ -107,20 +107,27 @@ def facturacion_por_categoria():
 	return facturacion_total_categoria
 
 
+def swap_id(productos):
+	result = []
+	for producto in productos:
+		producto["id"] = str(producto.get('_id'))
+		del producto["_id"]
+		result.append(producto)
+
+	return result
+
+
 def busqueda_categoria(categoria):
+	query = {}
 	if categoria != "all":
 		query = {"category": categoria}
-		r = productos_collection.find(query,{"_id":0, "title": 1, "description": 1, "image": 1, "price":1})
-	else:
-		r = productos_collection.find({},{"_id":0, "title": 1, "description": 1, "image": 1, "price":1})
-    
-	return r
+
+	return swap_id(productos_collection.find(query,{"_id":1, "title": 1, "description": 1, "image": 1, "price":1}))
 
 
 def busqueda_palabra(palabra):
-    query = {"description": {"$regex" : palabra, "$options": "i"}}
-    return  productos_collection.find(query,{"_id":0, "title": 1, "description": 1, "image": 1, "price":1})
-        
+	query = {"description": {"$regex" : palabra, "$options": "i"}}
+	return swap_id(productos_collection.find(query,{"_id":1, "title": 1, "description": 1, "image": 1, "price":1}))
 
 def add_producto(producto, request):
 	try :

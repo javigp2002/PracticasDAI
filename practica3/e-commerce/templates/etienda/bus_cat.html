@@ -14,7 +14,9 @@
             <h5 class="card-title "><b>{{producto.title}}</b></h5>
             <p class="card-text">{{producto.description}}</p>
           </div>
-          <p class="card-footer">{{producto.price}} €</p>
+          <p class="card-footer">{{producto.price}} €
+            <span class="sp" data-id={{producto.id}}>Estrellas</span>
+          </p>
       </div>
     </div>
     {% endfor %}
