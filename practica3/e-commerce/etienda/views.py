@@ -23,6 +23,8 @@ def index(request):
 def busqueda(request):
     context = {
         'buscar' : request.GET.get('buscar'),
+        'h2': 'Palabra: ' + request.GET.get('buscar'),
+
         'productos': busqueda_palabra(request.GET.get('buscar'))
     }
 
@@ -34,12 +36,13 @@ def bus_cat(request,busc):
     context = {
         'buscar' : request.GET.get('buscar'),
         'busc' : busc,
+        'h2': 'Categoría: ' + busc,
         'productos': busqueda_categoria(busc),
     }
 
     logger.info('Búsqueda de productos con la categoría: ' + busc)
 
-    return render(request, 'etienda/bus_cat.html', context)
+    return render(request, 'etienda/busqueda.html', context)
 
 @login_required
 def add(request):

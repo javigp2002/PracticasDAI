@@ -205,6 +205,27 @@ def modify_product(producto, id):
 	logger.info("Producto " + id + " modificado correctamente")
 	
 	return get_producto_by_id(id)
+
+
+def modify_rating(id, rating):
+	product = productos_collection.find_one({"_id": ObjectId(id)}, {"rating": 1})
+	logger.info("Producto " + id + " encontrado")
+
+	if (product):
+		new_rating = Nota(**product['rating'])
+
+		new_count = new_rating.count +1
+		new_rate = ((new_rating.rate * new_rating.count) + (rating * 1.0)) / new_count
+		logger.info("New_count: " + str(new_rate))
+	
+
+		productos_collection.update_one({"_id": ObjectId(id)}, {"$set": {"rating": {"rate": new_rate, "count": new_count}}})
+		logger.info("Producto " + id + " modificado correctamente")
+		
+		return get_producto_by_id(id)
+	else:
+		logger.error("Error al modificar el producto")
+		return False
 	
 def delete_product(id):
 	try:
