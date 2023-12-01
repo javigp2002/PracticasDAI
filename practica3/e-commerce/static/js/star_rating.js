@@ -12,29 +12,25 @@ document.addEventListener('DOMContentLoaded', () => {
 		fetch(`http://localhost:8000/api/productos/${id}`)
 			.then(response => response.json())
 			.then(data => {
-				const rating = data.rating;
-				const rate = data.rate;
-				
-				console.log(rating)
-				
-				if (rating >= 2.5){
-					ele.innerHTML = `                                        
-						<span class="fa fa-star not_checked"></span>
-						<span class="fa fa-star not_checked"></span>
-						<span class="fa fa-star not_checked"></span>
-						<span class="fa fa-star not_checked"></span>
-					`
-				}else{
-					ele.innerHTML = `                                        
-						<span class="fa fa-star checked"></span>
-						<span class="fa fa-star checked"></span>
-						<span class="fa fa-star checked"></span>
-						<span class="fa fa-star checked"></span>
-						<span class="fa fa-star checked"></span>
-					`
+				const rate = data.rating.rate;
+				const count = data.rating.count;
+				let num_star=0;
+								
+				for (let i = 1; i <= rate; i++) {
+					ele.innerHTML += `<span class="fa fa-star checked"></span>`;
+					num_star++;
 				}
 
+				console.log(rate % 1)
+				if (rate % 1 >= 0.5) {
+					ele.innerHTML += `<span class="fa fa-star-half-o checked"></span>`;
+					num_star++;
+				}
 
+				for (let i = 1; i <= 5 - num_star; i++) {
+					ele.innerHTML += `<span class="fa fa-star-o checked"></span>`;
+				}
 			})
 	})
 })
+

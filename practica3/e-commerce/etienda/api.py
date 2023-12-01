@@ -40,7 +40,7 @@ def add_prods_api(request, title: str = Form(...), price: float = Form(...), des
     except Exception as e:
           return 404, {"message": "No se ha podido añadir el producto"}
 
-@api.get("/productos/{id}", tags=['Productos'], response={200: Producto, 404: ErrorSchema})
+@api.get("/productos/{id}", tags=['Productos'])
 def get_prod_by_id(request, id: str):
     try:
         return 200,get_producto_by_id(id)
