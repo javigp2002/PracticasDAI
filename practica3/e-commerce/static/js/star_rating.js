@@ -1,4 +1,5 @@
 document.addEventListener('DOMContentLoaded', () => {
+	
 	const span_para_estrellas = document.querySelectorAll('span.sp');
 
 	span_para_estrellas.forEach((ele) => {
@@ -23,6 +24,7 @@ document.addEventListener('DOMContentLoaded', () => {
 					.catch(error => {
 						console.error('Error al realizar la solicitud PUT:', error);
 					});
+			
 			});
 
 
@@ -76,7 +78,7 @@ document.addEventListener('DOMContentLoaded', () => {
 					num_star++;
 				}
 
-				ele.innerHTML += `<span class="rate">(${Number((rate).toFixed(1))}),  ${count})</span>`;
+				ele.innerHTML += `<span class="rate">(${Number((rate).toFixed(1))}, ${count} Vals)</span>`;
 
 				puntuar(ele); // Add event listeners to the newly drawn stars
 			});

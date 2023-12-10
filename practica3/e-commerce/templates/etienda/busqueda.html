@@ -15,8 +15,9 @@
           </div>
           
           <p class="card-footer">{{producto.price}} €
-
+          {% if user.is_authenticated %}
             <span class="sp" data-id={{producto.id}} ></span>
+          {% endif %}
           </p>    
       </div>
     </div>

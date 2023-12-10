@@ -10,6 +10,8 @@ from typing import Any
 from django.contrib import messages
 from django.shortcuts import render, redirect
 from ninja import Schema
+from django.contrib.auth.decorators import login_required
+
 
 
 
@@ -205,7 +207,6 @@ def modify_product(producto, id):
 	logger.info("Producto " + id + " modificado correctamente")
 	
 	return get_producto_by_id(id)
-
 
 def modify_rating(id, rating):
 	product = productos_collection.find_one({"_id": ObjectId(id)}, {"rating": 1})
