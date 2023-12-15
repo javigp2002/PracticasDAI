@@ -45,3 +45,26 @@ Ahora solo realizamos docker compose up - down
 
 
 POR ALGUNA RAZON, para utilizar el data (pymongo) necesitamos eliminar el ./data y volver a guardar los datos, sino saldra con "exited with code 14"
+
+
+## Practica 5
+crear front-end con Vite entonces
+
+```
+npm install react-bootstrap bootstrap
+
+create-vite@latest
+--
+cd front
+npm install
+npm run dev
+```
+
+Descargar extension ES7+ REACT...
+
+Para crear rapido un componente utilizar al principio de la pagina
+```
+rfc
+```
+
+npm install react-bootstrap bootstrap
