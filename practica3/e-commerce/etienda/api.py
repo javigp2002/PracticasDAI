@@ -19,6 +19,13 @@ class ProductoSchema(Schema):
 	description: str
 	category: str
     
+class ProductoSchemaWithImage(Schema):
+	title: str
+	price: float
+	description: str
+	image: str
+	category: str
+
 class ErrorSchema(Schema):
 	message: str
 	
@@ -28,7 +35,7 @@ class ErrorSchema(Schema):
 def add(request, a: int, b: int):
 	return {"ok": "yes", "data": {"suma": a + b, "resta": a - b}}
 
-@api.get("/productos", tags=['Productos'], response={200: list[ProductoSchema]})
+@api.get("/productos", tags=['Productos'], response={200: list[Producto]})
 def get_prods_api(request, desde: int, hasta: int):
     return 200, get_productos(desde, hasta)
 

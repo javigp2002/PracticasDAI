@@ -5,6 +5,7 @@ import './App.css'
 import Menu from './components/Menu.jsx'
 import Resultados from './components/Resultados.jsx'
 import { useEffect } from 'react'; // Add missing import statement
+import { PrimeReactProvider, PrimeReactContext } from 'primereact/api';
 
 
 
@@ -24,7 +25,7 @@ function App() {
   }
 
   useEffect(() => {
-    fetch('https://fakestoreapi.com/products')
+    fetch("http://localhost:8000/api/productos?desde=0&hasta=100")
       .then((response) => response.json())
       .then((prods) => {
         setProductos(prods)
