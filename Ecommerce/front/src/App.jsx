@@ -14,14 +14,22 @@ function App() {
   const [productosF, setProductosF] = useState([])
 
   const cambiado = (evento) => {
-    if (evento.target.value !== "") {
-      const filteredProductos = productos.filter((producto) => producto.category.includes(evento.target.value))
+    console.log(typeof evento)
+    if (typeof evento === "string") {
+      console.log(evento)
+      const filteredProductos = productos.filter((producto) => producto.category.includes(evento))
       setProductosF(filteredProductos)
     } else {
-      setProductosF(productos)
+      if (evento.target.value !== "") {
+        const filteredProductos = productos.filter((producto) => producto.category.includes(evento.target.value))
+        setProductosF(filteredProductos)
+      } else {
+        setProductosF(productos)
+      }
     }
+
    
-    console.log(evento.target.value)
+   
   }
 
   useEffect(() => {

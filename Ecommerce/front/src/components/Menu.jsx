@@ -13,7 +13,7 @@ export default function Menu({cambiado}) {
     return (
         <Navbar expand="lg" className="bg-body-tertiary" fixed="top">
         <Container fluid>
-            <Navbar.Brand href="#">Navbar scroll</Navbar.Brand>
+            <Navbar.Brand href="#">Tienda Dai </Navbar.Brand>
             <Navbar.Toggle aria-controls="navbarScroll" />
             <Navbar.Collapse id="navbarScroll">
                 <Nav
@@ -21,21 +21,18 @@ export default function Menu({cambiado}) {
                     style={{ maxHeight: '100px' }}
                     navbarScroll
                 >
-                    <Nav.Link href="#action1">Home</Nav.Link>
-                    <Nav.Link href="#action2">Link</Nav.Link>
-                    <NavDropdown title="Link" id="navbarScrollingDropdown">
-                        <NavDropdown.Item href="#action3">Action</NavDropdown.Item>
-                        <NavDropdown.Item href="#action4">
-                            Another action
-                        </NavDropdown.Item>
+                    <Nav.Link href="#action1">Tienda DAI</Nav.Link>
+                    <NavDropdown title="Categorias" id="navbarScrollingDropdown">
+                        <NavDropdown.Item onClick={() => cambiado("electronics")}>Electronics</NavDropdown.Item>
+                        <NavDropdown.Item onClick={() => cambiado("jewelery")}>Jewelry</NavDropdown.Item>
+                        <NavDropdown.Item onClick={() => cambiado("men's clothing")}>Men's fashion</NavDropdown.Item>
+                        <NavDropdown.Item onClick={() => cambiado("women's clothing")}>Women's fashion</NavDropdown.Item>
+
                         <NavDropdown.Divider />
                         <NavDropdown.Item href="#action5">
-                            Something else here
+                            All products
                         </NavDropdown.Item>
                     </NavDropdown>
-                    <Nav.Link href="#" disabled>
-                        Link
-                    </Nav.Link>
                 </Nav>
                 <Form className="d-flex">
                     <Form.Control
