@@ -11,7 +11,7 @@ export default function Resultados({ productos }) {
       {productos.map((producto) => (
         <Col key={producto.id}>
           <Card>
-            <Card.Img variant="top" src={`public/${producto.image}`} />
+            <Card.Img variant="top" src={`${producto.image}`} />
             <Card.Body>
               <Card.Title>{producto.title}</Card.Title>
               <Card.Text>{producto.description}</Card.Text>
