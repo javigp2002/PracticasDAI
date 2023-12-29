@@ -68,3 +68,26 @@ rfc
 ```
 
 npm install react-bootstrap bootstrap
+
+
+## Practica 6
+- Crear carpeta nginx y documentarlo con la configuración y el dockerfile (como está)
+- Crear y añadir nginx docker-compose-prod 
+
+```
+docker compose -f ./docker-compose-prod.yml build
+docker compose -f ./docker-compose-prod.yml up
+```
+
+- Cambiar las busquedas en react y la configuración para que se ejecuten los extras (en dist no se crea la carpeta public, directamente la de imagenes - a tener en cuenta en resultados.jsx)
+```
+npm run build
+```
+
+- Pasar las imagenes a static
+- ejecutar docker compose y ya tenemos todo
+
+```
+localhost/
+localhost/react
+```
